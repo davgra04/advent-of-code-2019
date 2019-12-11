@@ -202,9 +202,10 @@ class Computer:
 
         val = self.get_param_value(params[0], param_modes[2])
 
-        print("#########################")
-        print("## output:", val)
-        print("#########################")
+        if debug:
+            print("#########################")
+            print("## output:", val)
+            print("#########################")
 
         self.outputs.append(val)
 

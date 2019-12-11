@@ -9,27 +9,10 @@ input_file = "input.txt"
 with open(input_file, "r") as ifh:
     lines = [l.rstrip() for l in ifh.readlines()]
 
-# pprint(lines)
 ops = [int(x) for x in lines[0].rstrip().split(",")]
 
-
-
-
-visited = defaultdict(int)
-color = defaultdict(int)
-
-
-
-# directions
-### 0 up
-### 1 right
-### 2 down
-### 3 left
-
-
-bot_pos = [0, 0]
-bot_dir = 0
-
+# helper functions
+########################################
 
 def coord_to_str(coord):
     return "{},{}".format(coord[0], coord[1])
@@ -37,40 +20,47 @@ def coord_to_str(coord):
 def str_to_coord(s):
     return s.split(",")
 
+def move_forward(bot_pos, direction):
+    if direction == 0:      # up
+        return [bot_pos[0], bot_pos[1]+1]
+    elif direction == 1:    # right
+        return [bot_pos[0]+1, bot_pos[1]]
+    elif direction == 2:    # down
+        return [bot_pos[0], bot_pos[1]-1]
+    elif direction == 3:    # left
+        return [bot_pos[0]-1, bot_pos[1]]
 
-def move_forward(direction):
-    global bot_pos
-    if direction == 0:
-        bot_pos = [bot_pos[0], bot_pos[1]+1]
-    elif direction == 1:
-        bot_pos = [bot_pos[0]+1, bot_pos[1]]
-    elif direction == 2:
-        bot_pos = [bot_pos[0], bot_pos[1]-1]
-    elif direction == 3:
-        bot_pos = [bot_pos[0]-1, bot_pos[1]]
+# set up bot and panel state
+########################################
 
+visited = defaultdict(int)  # indicates which panels are visited
+color = defaultdict(int)    # indicates color of each panel
+
+bot_pos = [0, 0]
+bot_dir = 0
+
+# set up computer and run
+########################################
 
 comp = Computer(pause_on_output=True)
 comp.load_program(ops)
 
-while not comp.halted:
+while True:
 
+    # read current panel color and set input
     cur_color = color[coord_to_str(bot_pos)]
-
-    print("cur_color:", cur_color)
-
     comp.set_inputs([cur_color])
+    # print("cur_color:", cur_color)
 
-    # run until first output
+    # resume program twice to obtain 2 outputs
     comp.resume_program()
-    # run until second output
     comp.resume_program()
     outputs = comp.get_outputs()
+    # print("outputs:", outputs)
 
     if comp.halted:
         break
 
-    print("outputs:", outputs)
     to_paint = outputs[0]
     to_turn = outputs[1]
 
@@ -84,13 +74,6 @@ while not comp.halted:
     else:
         bot_dir = (bot_dir - 1) % 4
 
-    move_forward(bot_dir)
+    bot_pos = move_forward(bot_pos, bot_dir)
 
-    # quit()
-
-
-
-
-pprint(len(visited.keys()))
-# pprint(visited)
-
+print("Number of visited panels:", len(visited.keys()))
