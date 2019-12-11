@@ -1,4 +1,10 @@
+# python virtual env
 env/
+
+# go binaries
+puzzle_1
+puzzle_2
+
 
 # Created by https://www.gitignore.io/api/python
 # Edit at https://www.gitignore.io/?templates=python

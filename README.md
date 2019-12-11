@@ -9,7 +9,7 @@ Repository of my solutions for [Advent of Code 2019](https://adventofcode.com/20
 | ------ |:------:|:----:|
 | day 1  | ✓  ✓   | ✓  ✓ |
 | day 2  | ✓  ✓   | ✓  ✓ |
-| day 3  | ✓  ✓   | -  - |
+| day 3  | ✓  ✓   | ✓  ✓ |
 | day 4  | ✓  ✓   | -  - |
 | day 5  | ✓  ✓   | -  - |
 | day 6  | ✓  ✓   | -  - |
