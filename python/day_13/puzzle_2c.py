@@ -2,6 +2,7 @@ import sys,os
 import curses
 from pprint import pprint
 from computer import Computer
+import time
 
 
 class game:
@@ -118,6 +119,8 @@ def draw_menu(stdscr):
     right_collision = False
 
 
+    max_drawn_x = 0
+    max_drawn_y = 0
 
 
     k = 0
@@ -141,26 +144,26 @@ def draw_menu(stdscr):
         stdscr.clear()
         height, width = stdscr.getmaxyx()
 
-        if k == curses.KEY_RIGHT:
-            cursor_x = cursor_x + 1
-        elif k == curses.KEY_LEFT:
-            cursor_x = cursor_x - 1
+        # if k == curses.KEY_RIGHT:
+        #     cursor_x = cursor_x + 1
+        # elif k == curses.KEY_LEFT:
+        #     cursor_x = cursor_x - 1
 
 
 
         stdscr.addstr(height-3, 0, "frame: {}".format(frame))
 
 
-        stdscr.addstr(height-17, 0, "left_collision: {}".format(left_collision))
-        stdscr.addstr(height-16, 0, "right_collision: {}".format(right_collision))
+        # stdscr.addstr(height-17, 0, "left_collision: {}".format(left_collision))
+        # stdscr.addstr(height-16, 0, "right_collision: {}".format(right_collision))
 
         stdscr.addstr(height-14, 0, "last_ball_pos_y: {}".format(g.last_ball_pos_y))
         stdscr.addstr(height-13, 0, "ball_pos_y: {}".format(g.ball_pos_y))
-        stdscr.addstr(height-12, 0, "ball_motion_y: {}".format(g.ball_motion_y))
+        # stdscr.addstr(height-12, 0, "ball_motion_y: {}".format(g.ball_motion_y))
 
         stdscr.addstr(height-10, 0, "last_ball_pos_x: {}".format(g.last_ball_pos_x))
         stdscr.addstr(height-9, 0, "ball_pos_x: {}".format(g.ball_pos_x))
-        stdscr.addstr(height-8, 0, "ball_motion_x: {}".format(g.ball_motion_x))
+        # stdscr.addstr(height-8, 0, "ball_motion_x: {}".format(g.ball_motion_x))
 
         stdscr.addstr(height-6, 0, "paddle_pos: {}".format(g.paddle_pos))
         stdscr.addstr(height-5, 0, "paddle_status: {}".format(g.paddle_status))
@@ -211,6 +214,11 @@ def draw_menu(stdscr):
         y = outputs[1]
         tile = outputs[2]
 
+        # if x > max_drawn_x:
+        #     max_drawn_x = x
+        # if y > max_drawn_y:
+        #     max_drawn_y = y
+
         if x == -1 and y == 0:
             # input()
             # continue
@@ -238,8 +246,8 @@ def draw_menu(stdscr):
 
             # g.ball_pos_x = pos
 
-            left_collision = g.screen[y][x-1] == "B" or (g.screen[y-g.ball_motion_y][x-1] == "B" and g.screen[y-g.ball_motion_y][x] != "B")
-            right_collision = g.screen[y][x+1] == "B" or (g.screen[y-g.ball_motion_y][x+1] == "B" and g.screen[y-g.ball_motion_y][x] != "B")
+            # left_collision = g.screen[y][x-1] == "B" or (g.screen[y-g.ball_motion_y][x-1] == "B" and g.screen[y-g.ball_motion_y][x] != "B")
+            # right_collision = g.screen[y][x+1] == "B" or (g.screen[y-g.ball_motion_y][x+1] == "B" and g.screen[y-g.ball_motion_y][x] != "B")
 
             # left_collision = g.screen[row_idx][pos-1] == "B" or g.screen[row_idx + 1][pos-1] or g.screen[row_idx - 1][pos-1]
             # right_collision = g.screen[row_idx][pos+1] == "B" or g.screen[row_idx + 1][pos+1] == "B" or g.screen[row_idx - 1][pos+1] == "B"
@@ -247,22 +255,22 @@ def draw_menu(stdscr):
             # adjust ball motion
 
 
-            if g.ball_pos_y > g.last_ball_pos_y:
-                g.ball_motion_y = -1
-            elif g.ball_pos_y < g.last_ball_pos_y:
-                g.ball_motion_y = 1
+            # if g.ball_pos_y > g.last_ball_pos_y:
+            #     g.ball_motion_y = -1
+            # elif g.ball_pos_y < g.last_ball_pos_y:
+            #     g.ball_motion_y = 1
 
 
 
-            if g.ball_pos_x > g.last_ball_pos_x or left_collision:
-                g.ball_motion_x = 1
-            elif g.ball_pos_x < g.last_ball_pos_x or right_collision:
-                g.ball_motion_x = -1
+            # if g.ball_pos_x > g.last_ball_pos_x or left_collision:
+            #     g.ball_motion_x = 1
+            # elif g.ball_pos_x < g.last_ball_pos_x or right_collision:
+            #     g.ball_motion_x = -1
 
-            if g.ball_pos_x == 1:
-                g.ball_motion_x = 1
-            elif g.ball_pos_x == 41:
-                g.ball_motion_x = -1
+            # if g.ball_pos_x == 1:
+            #     g.ball_motion_x = 1
+            # elif g.ball_pos_x == 41:
+            #     g.ball_motion_x = -1
 
 
             # else:
@@ -271,14 +279,14 @@ def draw_menu(stdscr):
 
             for row_idx, row in enumerate(g.screen):
                 stdscr.addstr(row_idx, 0, "".join(row))
-                stdscr.refresh()
+            stdscr.refresh()
 
 
 
 
 
         # draw_screen()
-        print()
+        # print()
 
 
 
@@ -338,11 +346,13 @@ def draw_menu(stdscr):
 
         frame += 1
 
+        # time.sleep(1)
+
         if frame < 1000000:
             continue
 
 
-
+        
 
         k = stdscr.getch()
 
