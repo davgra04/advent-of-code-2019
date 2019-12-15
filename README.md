@@ -21,7 +21,7 @@ Repository of my solutions for [Advent of Code 2019](https://adventofcode.com/20
 | day 12 | ✓  ✓   | -  - |
 | day 13 | ✓  ✓   | -  - |
 | day 14 | ✓  ✓   | -  - |
-| day 15 | -  -   | -  - |
+| day 15 | ✓  ✓   | -  - |
 | day 16 | -  -   | -  - |
 | day 17 | -  -   | -  - |
 | day 18 | -  -   | -  - |
@@ -40,6 +40,7 @@ _Note: Started solving challenges on Dec 9th_
 ```
       --------Part 1--------   --------Part 2--------
 Day       Time   Rank  Score       Time   Rank  Score
+ 15   01:36:17    720      0   01:40:16    533      0
  14   00:52:58    406      0   01:04:36    296      0
  13   00:05:58    417      0   02:21:45   1727      0
  12   00:29:01    885      0   01:02:06    443      0
